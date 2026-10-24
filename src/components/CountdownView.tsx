@@ -143,6 +143,11 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
               ))}
             </div>
           )}
+          {!useSecondsCountdown && (
+            <p className="text-[11px] uppercase tracking-[0.2em] text-stone-500 mt-4">
+              Midnight • November 8th ✦
+            </p>
+          )}
         </div>
 
         {/* Enter Button */}

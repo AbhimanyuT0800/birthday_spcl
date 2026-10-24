@@ -3,6 +3,8 @@ import { ArrowLeft, Settings2, Flame, Sparkles, Volume2, VolumeX, Maximize2, X }
 import { BirthdayConfig } from '../types';
 import { sounds } from '../utils/audio';
 import { BirthdayWishReply } from './BirthdayWishReply';
+import { MiniGame } from './MiniGame';
+import { PersonalMoments } from './PersonalMoments';
 
 interface CelebrationViewProps {
   config: BirthdayConfig;
@@ -212,7 +214,12 @@ Happy Birthday. Always here for you.`;
         </div>
       </section>
 
-      {/* 3. Interactive Birthday Candle (Minimalist) */}
+      {/* 3. Personal Captured Moments */}
+      <section className="mb-16 sm:mb-24">
+        <PersonalMoments photos={config.photos} bestieName={config.bestieName} />
+      </section>
+
+      {/* 4. Interactive Birthday Candle (Minimalist) */}
       <section className="mb-16 sm:mb-24">
         <div className="clean-card p-8 sm:p-10 text-center flex flex-col items-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-stone-400 font-medium mb-3">
@@ -266,7 +273,12 @@ Happy Birthday. Always here for you.`;
         </div>
       </section>
 
-      {/* 4. Three Simple Promises */}
+      {/* 5. Alpine Mini Game */}
+      <section className="mb-16 sm:mb-24">
+        <MiniGame />
+      </section>
+
+      {/* 6. Three Simple Promises */}
       <section className="mb-16">
         <div className="mb-8 text-center sm:text-left">
           <p className="text-[10px] uppercase tracking-[0.25em] text-stone-400 font-medium mb-2">

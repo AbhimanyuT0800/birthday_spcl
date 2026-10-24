@@ -9,9 +9,9 @@ const DEFAULT_CONFIG: BirthdayConfig = {
   bestieName: 'Bestie',
   bestieNickname: '',
   senderName: 'Your Best Friend',
-  birthdayDate: new Date(Date.now() + 86400000).toISOString().slice(0, 16),
-  targetSeconds: 10, // 10s default countdown for testing/development
-  useSecondsCountdown: true,
+  birthdayDate: '2026-11-07T23:59:00',
+  targetSeconds: 10,
+  useSecondsCountdown: false,
   letterMessage: '',
   recipientEmail: 'abhimanyua0800@gmail.com',
   photos: [],
@@ -19,7 +19,7 @@ const DEFAULT_CONFIG: BirthdayConfig = {
   coupons: [],
 };
 
-const STORAGE_KEY = 'bestie_birthday_surprise_simple_v2';
+const STORAGE_KEY = 'bestie_birthday_surprise_simple_v3';
 
 export const App: React.FC = () => {
   const [config, setConfig] = useState<BirthdayConfig>(() => {
