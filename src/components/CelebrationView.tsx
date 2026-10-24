@@ -3,8 +3,6 @@ import { ArrowLeft, Settings2, Flame, Sparkles, Volume2, VolumeX, Maximize2, X }
 import { BirthdayConfig } from '../types';
 import { sounds } from '../utils/audio';
 import { BirthdayWishReply } from './BirthdayWishReply';
-import { MiniGame } from './MiniGame';
-import { PersonalMoments } from './PersonalMoments';
 
 interface CelebrationViewProps {
   config: BirthdayConfig;
@@ -36,13 +34,13 @@ const SWISS_PHOTOS: SwissPhoto[] = [
     title: 'Grindelwald Chalets',
     location: 'Jungfrau Region, Switzerland',
     url: 'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=85',
-    caption: 'Wooden chalets scattered along green alpine hills. The cozy future home you dream of settling into.',
+    caption: 'Wooden chalets scattered along green alpine hills. Cozy evenings by the fireplace with warm cocoa and your favorite Ferrero Rochers.',
   },
   {
     title: 'The Glacier Express',
     location: 'Swiss Alps',
     url: 'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?auto=format&fit=crop&w=1200&q=85',
-    caption: 'Panoramic train windows framing frozen lakes and snowbanks, watching the world drift by with hot cocoa.',
+    caption: 'Panoramic train windows framing frozen lakes and snowbanks, watching the world drift by with hot chocolate.',
   },
 ];
 
@@ -69,11 +67,11 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
 
   const defaultLetter = `Dearest ${config.bestieName || 'Bestie'},
 
-From our endless conversations to the comfortable silences, having you as my best friend has been one of the quiet constants I am most grateful for.
+From our endless conversations to laughing over a box of your favorite Ferrero Rochers, having you as my best friend has been one of the quiet constants I am most grateful for.
 
-I know your untold, secret dream — to one day pack your life, leave the chaos behind, and settle quietly among the mountains of Switzerland 🇨🇭. Waking up to the fresh alpine air, watching the mist rise over Lauterbrunnen, and having a peaceful wooden chalet to call your own.
+I know your untold, secret dream — to one day pack your life, leave the chaos behind, and settle quietly among the mountains of Switzerland 🇨🇭. Waking up to the fresh alpine air, watching the mist rise over Lauterbrunnen, and having a peaceful wooden chalet to call your own with a warm blanket and golden Ferrero Rochers by the fire.
 
-You have an adventurous, gentle soul, and you deserve a life filled with that kind of stillness and wonder. 
+You have an adventurous, gentle soul, and you deserve a life filled with that kind of sweetness, stillness, and wonder. 
 
 On your birthday today, I hope this new year brings you genuine peace, deep laughter, and takes you one step closer to your dream home in the Alps.
 
@@ -214,12 +212,7 @@ Happy Birthday. Always here for you.`;
         </div>
       </section>
 
-      {/* 3. Personal Captured Moments */}
-      <section className="mb-16 sm:mb-24">
-        <PersonalMoments photos={config.photos} bestieName={config.bestieName} />
-      </section>
-
-      {/* 4. Interactive Birthday Candle (Minimalist) */}
+      {/* 3. Interactive Birthday Candle (Minimalist) */}
       <section className="mb-16 sm:mb-24">
         <div className="clean-card p-8 sm:p-10 text-center flex flex-col items-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-stone-400 font-medium mb-3">
@@ -273,12 +266,7 @@ Happy Birthday. Always here for you.`;
         </div>
       </section>
 
-      {/* 5. Funny Mini Game */}
-      <section className="mb-16 sm:mb-24">
-        <MiniGame bestieName={config.bestieName} />
-      </section>
-
-      {/* 6. Three Simple Promises */}
+      {/* 4. Three Simple Promises */}
       <section className="mb-16">
         <div className="mb-8 text-center sm:text-left">
           <p className="text-[10px] uppercase tracking-[0.25em] text-stone-400 font-medium mb-2">
@@ -296,8 +284,8 @@ Happy Birthday. Always here for you.`;
               desc: 'Whenever you decide to visit or pack up to move to the Alps, I promise to be by your side and your very first houseguest.',
             },
             {
-              title: 'A Safe Haven Anytime',
-              desc: 'No matter the time of night or what is happening, you will always have someone to talk to, vent to, or sit in silence with.',
+              title: 'The Ferrero Rocher & Cocoa Stash 🍫',
+              desc: 'An endless supply of your favorite golden Ferrero Rochers and warm Swiss cocoa, ready for any mood, celebration, or late-night venting session.',
             },
             {
               title: 'Unconditional Support',
