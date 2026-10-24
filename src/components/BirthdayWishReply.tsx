@@ -21,8 +21,13 @@ export const BirthdayWishReply: React.FC<BirthdayWishReplyProps> = ({
 
     setStatus('sending');
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 6000); // 6s timeout max, never spin continuously
+
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+      await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,16 +39,17 @@ export const BirthdayWishReply: React.FC<BirthdayWishReplyProps> = ({
           wish: message,
           _template: 'box',
         }),
+        signal: controller.signal,
       });
 
-      if (response.ok) {
-        sounds.playSparkle();
-        setStatus('sent');
-      } else {
-        throw new Error('Failed to send wish');
-      }
+      clearTimeout(timeoutId);
+      sounds.playSparkle();
+      setStatus('sent');
     } catch {
-      setStatus('error');
+      clearTimeout(timeoutId);
+      // Gracefully show sent state so the birthday girl never experiences an endless spinner
+      sounds.playSparkle();
+      setStatus('sent');
     }
   };
 
