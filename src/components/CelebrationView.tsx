@@ -273,9 +273,9 @@ Happy Birthday. Always here for you.`;
         </div>
       </section>
 
-      {/* 5. Alpine Mini Game */}
+      {/* 5. Funny Mini Game */}
       <section className="mb-16 sm:mb-24">
-        <MiniGame />
+        <MiniGame bestieName={config.bestieName} />
       </section>
 
       {/* 6. Three Simple Promises */}

@@ -1,156 +1,175 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, RotateCcw, Trophy } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, RotateCcw, Laugh } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { triggerBurst } from '../utils/confetti';
 
-interface CardItem {
-  id: number;
-  emoji: string;
-  name: string;
-  matched: boolean;
+interface Question {
+  question: string;
+  options: {
+    text: string;
+    reaction: string;
+  }[];
 }
 
-const MEMORY_ITEMS = [
-  { emoji: '🏔️', name: 'Alps' },
-  { emoji: '🇨🇭', name: 'Switzerland' },
-  { emoji: '☕', name: 'Coffee' },
-  { emoji: '✈️', name: 'Wanderlust' },
-  { emoji: '🎂', name: 'Birthday' },
-  { emoji: '💖', name: 'Bestie' },
+const QUESTIONS: Question[] = [
+  {
+    question: 'Who takes 3 to 5 business days to reply to a simple text?',
+    options: [
+      {
+        text: 'Definitely Her 📱',
+        reaction: 'Accurate! Carrier pigeons fly faster than her replies. 😂',
+      },
+      {
+        text: 'Still Her (claims she was "sleeping") 😴',
+        reaction: 'Sleeping? More like watching reels until 3 AM! 💀',
+      },
+    ],
+  },
+  {
+    question: 'Who is more likely to secretly move to Switzerland tomorrow without telling anyone?',
+    options: [
+      {
+        text: 'Her, escaping to the mountains 🏔️',
+        reaction: 'She would already be drinking hot cocoa in a wooden chalet. ☕',
+      },
+      {
+        text: 'Her, but she is forcing me to be her roommate 🧳',
+        reaction: 'Deal! I am packing my bags right now. ✈️🇨🇭',
+      },
+    ],
+  },
+  {
+    question: 'Who makes the questionable life decisions in this friendship?',
+    options: [
+      {
+        text: 'She makes them, I provide moral support 🤡',
+        reaction: 'A true partnership in crime! 🤝',
+      },
+      {
+        text: 'We both make them together and regret nothing ✨',
+        reaction: 'Partners in chaos for life! 🥂',
+      },
+    ],
+  },
+  {
+    question: 'Who is officially the most dramatic, yet most irreplaceable best friend?',
+    options: [
+      {
+        text: 'Her (obviously) 👑',
+        reaction: '100% correct! The world would be boring without her. 💖',
+      },
+      {
+        text: 'Also Her (there is no other option) 💖',
+        reaction: 'Undisputed Queen of our friendship! 🌸',
+      },
+    ],
+  },
 ];
 
-export const MiniGame: React.FC = () => {
-  const [cards, setCards] = useState<CardItem[]>([]);
-  const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
-  const [moves, setMoves] = useState(0);
-  const [isWon, setIsWon] = useState(false);
+export const MiniGame: React.FC<{ bestieName: string }> = ({ bestieName }) => {
+  const [currentQ, setCurrentQ] = useState(0);
+  const [selectedReaction, setSelectedReaction] = useState<string | null>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
 
-  // Initialize and shuffle cards
-  const initGame = () => {
-    const deck = [...MEMORY_ITEMS, ...MEMORY_ITEMS]
-      .sort(() => Math.random() - 0.5)
-      .map((item, index) => ({
-        id: index,
-        emoji: item.emoji,
-        name: item.name,
-        matched: false,
-      }));
-    setCards(deck);
-    setFlippedIndices([]);
-    setMoves(0);
-    setIsWon(false);
+  const handleSelectOption = (reaction: string) => {
+    sounds.playPop();
+    setSelectedReaction(reaction);
+
+    setTimeout(() => {
+      setSelectedReaction(null);
+      if (currentQ < QUESTIONS.length - 1) {
+        setCurrentQ((prev) => prev + 1);
+      } else {
+        sounds.playFanfare();
+        triggerBurst();
+        setIsCompleted(true);
+      }
+    }, 1400);
   };
 
-  useEffect(() => {
-    initGame();
-  }, []);
-
-  const handleCardClick = (index: number) => {
-    // Ignore click if already flipped, matched, or 2 cards currently open
-    if (
-      flippedIndices.length === 2 ||
-      flippedIndices.includes(index) ||
-      cards[index].matched
-    ) {
-      return;
-    }
-
-    sounds.playPop();
-    const newFlipped = [...flippedIndices, index];
-    setFlippedIndices(newFlipped);
-
-    if (newFlipped.length === 2) {
-      setMoves((prev) => prev + 1);
-      const [firstIdx, secondIdx] = newFlipped;
-      if (cards[firstIdx].emoji === cards[secondIdx].emoji) {
-        // Matched!
-        setTimeout(() => {
-          sounds.playSparkle();
-          setCards((prev) =>
-            prev.map((c, i) =>
-              i === firstIdx || i === secondIdx ? { ...c, matched: true } : c
-            )
-          );
-          setFlippedIndices([]);
-
-          // Check if all matched
-          const remaining = cards.filter(
-            (c, i) => !c.matched && i !== firstIdx && i !== secondIdx
-          );
-          if (remaining.length === 0) {
-            sounds.playFanfare();
-            triggerBurst();
-            setIsWon(true);
-          }
-        }, 500);
-      } else {
-        // Not matched, flip back
-        setTimeout(() => {
-          setFlippedIndices([]);
-        }, 850);
-      }
-    }
+  const handleRestart = () => {
+    sounds.playSparkle();
+    setCurrentQ(0);
+    setSelectedReaction(null);
+    setIsCompleted(false);
   };
 
   return (
-    <div className="clean-card p-6 sm:p-10 text-center select-none">
+    <div className="clean-card p-6 sm:p-10 text-center select-none relative overflow-hidden">
       <div className="text-[10px] uppercase tracking-[0.25em] text-stone-500 font-semibold mb-3 flex items-center justify-between">
-        <span>Mini Game</span>
-        <span className="text-stone-400">Memory Match ✦</span>
+        <span className="flex items-center gap-1.5">
+          <Laugh className="w-3.5 h-3.5 text-stone-400" />
+          <span>Bestie Reality Check</span>
+        </span>
+        <span className="text-stone-400">
+          {!isCompleted ? `${currentQ + 1} of ${QUESTIONS.length}` : 'Completed'} ✦
+        </span>
       </div>
 
       <h2 className="font-serif text-2xl sm:text-3xl text-stone-100 font-normal mb-2">
-        Match The Alpine Memories
+        {!isCompleted ? 'The Friendship Truth Test' : 'Official Diagnosis 🏆'}
       </h2>
-      <p className="text-xs text-stone-400 font-light mb-6 max-w-sm mx-auto">
-        A quick game for the birthday girl. Flip the cards and match all the pairs!
+      <p className="text-xs text-stone-400 font-light mb-8 max-w-sm mx-auto">
+        {!isCompleted
+          ? 'A 100% scientific, totally unbiased mini-quiz for the birthday girl.'
+          : 'The science has spoken. Here are your official friendship lab results:'}
       </p>
 
-      {/* Game Board */}
-      <div className="grid grid-cols-4 gap-2.5 sm:gap-3 max-w-xs mx-auto mb-6">
-        {cards.map((card, index) => {
-          const isFlipped = flippedIndices.includes(index) || card.matched;
-          return (
-            <button
-              key={card.id}
-              onClick={() => handleCardClick(index)}
-              className={`aspect-square rounded-2xl flex items-center justify-center text-2xl sm:text-3xl transition-all duration-300 transform active:scale-95 ${
-                card.matched
-                  ? 'bg-stone-800/80 border border-stone-600/40 opacity-70'
-                  : isFlipped
-                  ? 'bg-stone-200 text-stone-900 shadow-md rotate-0'
-                  : 'bg-white/[0.04] border border-white/10 hover:border-white/20'
-              }`}
-            >
-              {isFlipped ? card.emoji : <span className="text-stone-600 text-sm">✦</span>}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Status & Controls */}
-      <div className="flex items-center justify-between max-w-xs mx-auto text-xs text-stone-400 pt-2 border-t border-white/5">
-        <span className="font-light">Moves: {moves}</span>
-        <button
-          onClick={initGame}
-          className="inline-flex items-center gap-1.5 hover:text-stone-200 transition-colors"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          <span>Reset</span>
-        </button>
-      </div>
-
-      {/* Won Modal / Banner */}
-      {isWon && (
-        <div className="mt-6 p-5 rounded-2xl bg-white/[0.04] border border-white/15 animate-fadeIn">
-          <div className="flex items-center justify-center gap-2 mb-2 text-stone-100">
-            <Trophy className="w-5 h-5 text-amber-300" />
-            <h3 className="font-serif text-xl font-normal">You Did It!</h3>
-            <Sparkles className="w-4 h-4 text-amber-300" />
+      {!isCompleted ? (
+        <div className="max-w-md mx-auto">
+          {/* Question Text */}
+          <div className="min-h-[70px] flex items-center justify-center mb-6">
+            <h3 className="font-serif text-xl sm:text-2xl text-stone-100 font-normal leading-snug">
+              "{QUESTIONS[currentQ].question}"
+            </h3>
           </div>
-          <p className="text-xs text-stone-300 font-light max-w-xs mx-auto leading-relaxed">
-            Completed in {moves} moves! You've unlocked the secret birthday blessing: may all your Swiss alpine dreams come true this year! 🏔️✨
+
+          {/* Reaction Banner if just tapped */}
+          {selectedReaction ? (
+            <div className="p-4 rounded-2xl bg-white/[0.06] border border-white/15 text-stone-200 text-sm font-medium animate-bounce mb-4">
+              {selectedReaction}
+            </div>
+          ) : (
+            /* 2 Funny Options */
+            <div className="space-y-3">
+              {QUESTIONS[currentQ].options.map((opt, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSelectOption(opt.reaction)}
+                  className="w-full p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-white/25 text-left text-xs sm:text-sm text-stone-200 font-light flex items-center justify-between transition-all active:scale-[0.98] group"
+                >
+                  <span>{opt.text}</span>
+                  <span className="text-stone-500 group-hover:text-stone-300 font-serif text-xs">
+                    Tap →
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Results Card */
+        <div className="max-w-md mx-auto p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/10 text-center animate-fadeIn">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-medium mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Diagnosis: 100% Certified Bestie</span>
+          </div>
+
+          <h3 className="font-serif text-3xl text-stone-100 font-normal mb-3">
+            {bestieName || 'Bestie'}, You Passed!
+          </h3>
+
+          <p className="text-xs sm:text-sm text-stone-300 font-light leading-relaxed mb-6">
+            Results confirm: You are <strong>50% Switzerland wanderlust</strong>, <strong>40% unread voice notes</strong>, and <strong>100% the most irreplaceable human</strong> in the universe.
           </p>
+
+          <button
+            onClick={handleRestart}
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-stone-100 hover:bg-white text-stone-900 text-xs font-medium tracking-wide transition-all active:scale-95 shadow-sm"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Play Again</span>
+          </button>
         </div>
       )}
     </div>
