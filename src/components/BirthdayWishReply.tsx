@@ -10,7 +10,7 @@ interface BirthdayWishReplyProps {
 
 export const BirthdayWishReply: React.FC<BirthdayWishReplyProps> = ({
   bestieName,
-  recipientEmail = 'abhimanyut0800@gmail.com',
+  recipientEmail = 'abhimanyua0800@gmail.com',
   senderName,
 }) => {
   const [message, setMessage] = useState('');

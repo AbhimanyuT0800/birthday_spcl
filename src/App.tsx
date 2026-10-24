@@ -13,13 +13,13 @@ const DEFAULT_CONFIG: BirthdayConfig = {
   targetSeconds: 10, // 10s default countdown for testing/development
   useSecondsCountdown: true,
   letterMessage: '',
-  recipientEmail: '',
+  recipientEmail: 'abhimanyua0800@gmail.com',
   photos: [],
   reasons: [],
   coupons: [],
 };
 
-const STORAGE_KEY = 'bestie_birthday_surprise_simple_v1';
+const STORAGE_KEY = 'bestie_birthday_surprise_simple_v2';
 
 export const App: React.FC = () => {
   const [config, setConfig] = useState<BirthdayConfig>(() => {
