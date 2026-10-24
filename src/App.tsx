@@ -19,7 +19,7 @@ const DEFAULT_CONFIG: BirthdayConfig = {
   coupons: [],
 };
 
-const STORAGE_KEY = 'bestie_birthday_surprise_simple_v3';
+const STORAGE_KEY = 'bestie_birthday_nov7_countdown_v1';
 
 export const App: React.FC = () => {
   const [config, setConfig] = useState<BirthdayConfig>(() => {
