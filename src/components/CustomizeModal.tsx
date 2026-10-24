@@ -70,6 +70,19 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
             />
           </div>
 
+          <div>
+            <label className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1.5">
+              Your Email Address (To Receive Her Wishes)
+            </label>
+            <input
+              type="email"
+              value={formData.recipientEmail || ''}
+              onChange={(e) => setFormData({ ...formData, recipientEmail: e.target.value })}
+              placeholder="e.g. yourname@gmail.com"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-stone-100 text-xs focus:border-stone-400 outline-none"
+            />
+          </div>
+
           {/* Countdown Mode */}
           <div className="pt-2">
             <label className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1.5">

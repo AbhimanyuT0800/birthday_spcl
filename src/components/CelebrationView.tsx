@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, Settings2, Flame, Sparkles, Volume2, VolumeX, Maximize2, X } from 'lucide-react';
 import { BirthdayConfig } from '../types';
 import { sounds } from '../utils/audio';
+import { BirthdayWishReply } from './BirthdayWishReply';
 
 interface CelebrationViewProps {
   config: BirthdayConfig;
@@ -306,6 +307,15 @@ Happy Birthday. Always here for you.`;
             </div>
           ))}
         </div>
+      </section>
+
+      {/* 5. Birthday Wish Reply Area */}
+      <section className="mb-16">
+        <BirthdayWishReply
+          bestieName={config.bestieName}
+          recipientEmail={config.recipientEmail}
+          senderName={config.senderName}
+        />
       </section>
 
       {/* Minimal Footer */}

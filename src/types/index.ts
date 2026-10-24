@@ -6,6 +6,7 @@ export interface BirthdayConfig {
   targetSeconds: number; // for initial testing (e.g. 10s)
   useSecondsCountdown: boolean;
   letterMessage: string;
+  recipientEmail?: string;
   photos: PhotoMemory[];
   reasons: string[];
   coupons: CouponGift[];

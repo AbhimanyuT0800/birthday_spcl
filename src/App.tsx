@@ -13,6 +13,7 @@ const DEFAULT_CONFIG: BirthdayConfig = {
   targetSeconds: 10, // 10s default countdown for testing/development
   useSecondsCountdown: true,
   letterMessage: '',
+  recipientEmail: '',
   photos: [],
   reasons: [],
   coupons: [],
