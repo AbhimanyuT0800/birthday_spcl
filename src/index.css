@@ -7,6 +7,8 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     -webkit-tap-highlight-color: transparent;
     letter-spacing: -0.01em;
+    background-color: #050a17;
+    color: #f0f4fc;
   }
 
   h1, h2, h3, .font-serif {
@@ -14,23 +16,45 @@
   }
 }
 
-/* Minimalist understated card styles */
+/* Luxury Deep Midnight Blue card styles */
 .clean-card {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(150deg, rgba(12, 22, 48, 0.65) 0%, rgba(6, 12, 28, 0.85) 100%);
+  border: 1px solid rgba(96, 165, 250, 0.18);
   border-radius: 1.25rem;
+  box-shadow: 0 14px 40px -10px rgba(2, 6, 23, 0.8), 0 0 25px -10px rgba(37, 99, 235, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .clean-card-hover {
-  transition: all 0.25s ease;
+  transition: all 0.28s ease;
 }
 
 .clean-card-hover:hover {
-  background: rgba(255, 255, 255, 0.045);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(150deg, rgba(18, 33, 71, 0.78) 0%, rgba(8, 17, 39, 0.92) 100%);
+  border-color: rgba(147, 197, 253, 0.38);
+  box-shadow: 0 20px 50px -10px rgba(37, 99, 235, 0.28), 0 0 35px -5px rgba(56, 189, 248, 0.22);
 }
 
-/* Subtle scrollbars */
+/* Celestial Sapphire / Sky Foil Button */
+.gold-foil-btn, .sapphire-btn {
+  background: linear-gradient(135deg, #38bdf8 0%, #bae6fd 50%, #2563eb 100%);
+  color: #030712;
+  box-shadow: 0 6px 24px -4px rgba(56, 189, 248, 0.4);
+  transition: all 0.25s ease;
+}
+
+.gold-foil-btn:hover, .sapphire-btn:hover {
+  background: linear-gradient(135deg, #7dd3fc 0%, #ffffff 50%, #3b82f6 100%);
+  box-shadow: 0 8px 30px -4px rgba(56, 189, 248, 0.6);
+  transform: translateY(-1px);
+}
+
+.gold-foil-btn:active, .sapphire-btn:active {
+  transform: scale(0.97);
+}
+
+/* Midnight scrollbars */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -40,6 +64,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(96, 165, 250, 0.35);
   border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }

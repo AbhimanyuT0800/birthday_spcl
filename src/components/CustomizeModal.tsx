@@ -26,19 +26,19 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#121316] border border-white/10 rounded-2xl p-6 sm:p-8 max-w-md w-full text-left relative my-8 shadow-2xl text-stone-200">
+    <div className="fixed inset-0 z-50 bg-[#050a17]/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-[#070e20] border border-blue-500/20 rounded-2xl p-6 sm:p-8 max-w-md w-full text-left relative my-8 shadow-2xl text-slate-200">
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-1.5 text-stone-400 hover:text-white transition-colors"
+          className="absolute top-5 right-5 p-1.5 text-sky-400 hover:text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
 
-        <h2 className="font-serif text-2xl text-stone-100 font-normal mb-1">
+        <h2 className="font-serif text-2xl text-blue-50 font-normal mb-1">
           Customize Page
         </h2>
-        <p className="text-xs text-stone-400 font-light mb-6">
+        <p className="text-xs text-blue-200/70 font-light mb-6">
           Update names, the birthday date, or personal note.
         </p>
 
@@ -125,6 +125,18 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
 
           <div>
             <label className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1.5">
+              Her Birth Date (For Living Stats & Mileage Report)
+            </label>
+            <input
+              type="date"
+              value={formData.birthDate || '2004-11-08'}
+              onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })}
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-stone-100 text-xs focus:border-stone-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1.5">
               Personal Letter Note (Optional Override)
             </label>
             <textarea
@@ -139,7 +151,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
           <div className="flex gap-2 pt-3">
             <button
               type="submit"
-              className="flex-1 py-2.5 rounded-xl bg-stone-100 text-stone-950 font-medium text-xs hover:bg-white active:scale-95 transition-all flex items-center justify-center gap-1.5"
+              className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 font-semibold text-xs hover:from-sky-300 hover:to-indigo-300 active:scale-95 transition-all flex items-center justify-center gap-1.5 shadow-[0_4px_20px_rgba(56,189,248,0.35)]"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Save Changes</span>
@@ -147,7 +159,7 @@ export const CustomizeModal: React.FC<CustomizeModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl text-stone-400 hover:text-stone-200 text-xs"
+              className="px-4 py-2.5 rounded-xl text-blue-300/70 hover:text-white text-xs"
             >
               Cancel
             </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Settings2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface CountdownViewProps {
@@ -8,13 +8,12 @@ interface CountdownViewProps {
   targetSeconds?: number;
   birthdayDate?: string;
   onComplete: () => void;
-  onOpenSettings: () => void;
+  onOpenSettings?: () => void;
 }
 
 export const CountdownView: React.FC<CountdownViewProps> = ({
   bestieName,
   onComplete,
-  onOpenSettings,
 }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -22,16 +21,9 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
   useEffect(() => {
     const calculateTime = () => {
       const now = new Date();
-      const currentYear = now.getFullYear();
-      
-      // Target: November 7 at 11:59:00 PM (ready for Nov 8 midnight)
+      // Target: November 7, 2026 at 23:59:00 (ready for Nov 8 midnight)
       // Month 10 = November in JavaScript 0-indexed months
-      let target = new Date(currentYear, 10, 7, 23, 59, 0);
-      
-      // If Nov 7 23:59 this year has already passed, target next year
-      if (target.getTime() < now.getTime()) {
-        target = new Date(currentYear + 1, 10, 7, 23, 59, 0);
-      }
+      const target = new Date(2026, 10, 7, 23, 59, 0);
 
       const diff = target.getTime() - now.getTime();
 
@@ -63,25 +55,18 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center px-6 py-12 max-w-lg mx-auto w-full text-center select-none">
-      {/* Top subtle bar */}
-      <div className="w-full flex justify-between items-center text-xs text-stone-400 font-light tracking-widest uppercase">
-        <span>A Little Gift</span>
-        <button
-          onClick={onOpenSettings}
-          className="p-2 rounded-full hover:bg-white/5 transition-colors text-stone-500 hover:text-stone-300"
-          title="Settings"
-        >
-          <Settings2 className="w-4 h-4" />
-        </button>
+      {/* Top subtle bar without dev settings */}
+      <div className="w-full flex justify-center items-center text-xs text-sky-400/80 font-light tracking-widest uppercase">
+        <span>✦ A Special Gift For You ✦</span>
       </div>
 
       {/* Center Countdown Unit */}
       <div className="my-auto w-full flex flex-col items-center">
-        <p className="text-xs uppercase tracking-[0.25em] text-stone-400 font-medium mb-3">
-          For {bestieName || 'You'}
+        <p className="text-xs uppercase tracking-[0.25em] text-sky-400/90 font-medium mb-3">
+          For {bestieName || 'SHEL'}
         </p>
 
-        <h1 className="font-serif text-3xl sm:text-4xl text-stone-100 font-normal mb-8">
+        <h1 className="font-serif text-3xl sm:text-4xl text-blue-50 font-normal mb-8">
           {isFinished ? 'Your Day Is Here.' : 'Counting down to your birthday'}
         </h1>
 
@@ -94,18 +79,18 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
               { val: timeLeft.minutes, label: 'mins' },
               { val: timeLeft.seconds, label: 'secs' },
             ].map((t, idx) => (
-              <div key={idx} className="flex flex-col items-center p-3 sm:p-4 rounded-2xl bg-white/[0.03] border border-white/5 min-w-[65px] sm:min-w-[80px]">
-                <span className="font-serif text-3xl sm:text-4xl text-stone-100 font-light tabular-nums">
+              <div key={idx} className="flex flex-col items-center p-3 sm:p-4 rounded-2xl bg-slate-900/65 border border-blue-500/20 shadow-[0_8px_30px_rgba(2,6,23,0.7)] backdrop-blur-md min-w-[65px] sm:min-w-[80px]">
+                <span className="font-serif text-3xl sm:text-4xl text-white font-light tabular-nums">
                   {t.val.toString().padStart(2, '0')}
                 </span>
-                <span className="text-[10px] uppercase tracking-widest text-stone-500 mt-1">
+                <span className="text-[10px] uppercase tracking-widest text-sky-400/75 mt-1 font-medium">
                   {t.label}
                 </span>
               </div>
             ))}
           </div>
 
-          <p className="text-[11px] uppercase tracking-[0.25em] text-stone-400 mt-4 font-light">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-blue-300/70 mt-4 font-light">
             Midnight • November 8th ✦
           </p>
         </div>
@@ -113,7 +98,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
         {/* Enter / Skip Button */}
         <button
           onClick={handleEnter}
-          className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-stone-100 text-stone-900 text-xs font-medium tracking-wide hover:bg-white active:scale-95 transition-all shadow-sm"
+          className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-xs font-semibold tracking-wide hover:from-sky-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_4px_25px_rgba(56,189,248,0.35)]"
         >
           <span>{isFinished ? 'Open Your Birthday Note' : 'Skip & View Message'}</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -121,7 +106,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
       </div>
 
       {/* Bottom Quiet Quote */}
-      <div className="text-stone-500 text-xs font-serif italic tracking-wide">
+      <div className="text-blue-300/60 text-xs font-serif italic tracking-wide">
         “One flight closer to the Swiss Alps.” 🏔️
       </div>
     </div>

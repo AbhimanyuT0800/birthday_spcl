@@ -3,6 +3,7 @@ export interface BirthdayConfig {
   bestieNickname: string;
   senderName: string;
   birthdayDate: string; // ISO date string or formatted date
+  birthDate?: string; // Birth date for life calculator e.g. '2004-11-08'
   targetSeconds: number; // for initial testing (e.g. 10s)
   useSecondsCountdown: boolean;
   letterMessage: string;
