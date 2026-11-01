@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Flame, Sparkles, Volume2, VolumeX, Maximize2, X } from 'lucide-react';
+import { Flame, Sparkles, Volume2, VolumeX, Maximize2, X } from 'lucide-react';
 import { BirthdayConfig } from '../types';
 import { sounds } from '../utils/audio';
 import { BirthdayWishReply } from './BirthdayWishReply';
@@ -7,7 +7,7 @@ import { LivingStats } from './LivingStats';
 
 interface CelebrationViewProps {
   config: BirthdayConfig;
-  onBackToCountdown: () => void;
+  onBackToCountdown?: () => void;
 }
 
 interface SwissPhoto {
@@ -47,7 +47,6 @@ const SWISS_PHOTOS: SwissPhoto[] = [
 
 export const CelebrationView: React.FC<CelebrationViewProps> = ({
   config,
-  onBackToCountdown,
 }) => {
   const [candleBlown, setCandleBlown] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<SwissPhoto | null>(null);
@@ -67,31 +66,23 @@ export const CelebrationView: React.FC<CelebrationViewProps> = ({
 
   const defaultLetter = `Dearest ${config.bestieName || 'SHEL'},
 
-From our endless conversations to laughing over a box of your favorite Ferrero Rochers, having you as my best friend has been one of the quiet constants I am most grateful for.
+From our endless conversations to all the little moments we've shared, I'm honestly so grateful to have you as my best friend. You've been such a special part of my life, and I hope you know how much you mean to me.
 
-I know your untold, secret dream — to one day pack your life, leave the chaos behind, and settle quietly among the mountains of Switzerland 🇨🇭. Waking up to the fresh alpine air, watching the mist rise over Lauterbrunnen, and having a peaceful wooden chalet to call your own with a warm blanket and golden Ferrero Rochers by the fire.
+I know about that little dream of yours — one day leaving all the chaos behind and settling somewhere in the beautiful mountains of Switzerland. A cosy little wooden house, cold mornings, fresh mountain air, watching the mist cover Lauterbrunnen, and simply enjoying life at your own pace.
 
-You have an adventurous, gentle soul, and you deserve a life filled with that kind of sweetness, stillness, and wonder. 
+I really hope that one day you get to live the life you've always dreamed of. You deserve all the happiness, peace, and beautiful little moments that life has to offer.
 
-On your birthday today, I hope this new year brings you genuine peace, deep laughter, and takes you one step closer to your dream home in the Alps.
+On your birthday, I just wish you a year full of happiness, crazy laughter, unforgettable memories, and everything your heart has been wishing for.
 
-I promise to always cheer for you, listen to you, and be the first one visiting your Swiss cottage.
+And when that Swiss dream finally comes true, just know that I'll be showing up at your little cottage for a visit. That's a promise! 😂❤️
 
-Happy Birthday. Always here for you.`;
+Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you and always here for you. ❤️`;
 
   return (
     <div className="min-h-screen px-4 sm:px-6 py-8 sm:py-16 max-w-2xl mx-auto w-full text-slate-200">
       {/* Top Quiet Navigation */}
-      <nav className="flex items-center justify-between text-xs text-sky-400/80 font-light mb-12">
-        <button
-          onClick={onBackToCountdown}
-          className="inline-flex items-center gap-1.5 hover:text-white transition-colors py-1"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Countdown</span>
-        </button>
-
-        <div className="flex items-center gap-4">
+      <nav className="flex items-center justify-end text-xs text-sky-400/80 font-light mb-12">
+                <div className="flex items-center gap-4">
           <button
             onClick={handleToggleMusic}
             className="inline-flex items-center gap-1.5 hover:text-white transition-colors py-1"
