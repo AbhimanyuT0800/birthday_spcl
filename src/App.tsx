@@ -69,7 +69,7 @@ export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen w-full bg-[#050a17] text-[#f0f4fc] flex flex-col justify-between overflow-x-hidden selection:bg-blue-600/40 selection:text-white">
       {/* Flower loading screen (shown after the countdown button press) */}
-      {isLoading && <LoadingScreen duration={5000} onFinish={handleLoadingFinish} />}
+      {isLoading && <LoadingScreen duration={3000} onFinish={handleLoadingFinish} />}
 
       {/* Subtle ambient lighting */}
       <FloatingParticles />
