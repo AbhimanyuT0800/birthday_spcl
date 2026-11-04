@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface CountdownViewProps {
@@ -16,13 +17,6 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
 }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const onCompleteRef = useRef(onComplete);
-  const hasCompletedRef = useRef(false);
-
-  useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
 
   useEffect(() => {
     const calculateTime = () => {
@@ -54,16 +48,10 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
     return () => clearInterval(interval);
   }, [isFinished]);
 
-  // When the countdown reaches zero, move on automatically.
-  useEffect(() => {
-    if (!isFinished || hasCompletedRef.current) return;
-    hasCompletedRef.current = true;
-    const timer = window.setTimeout(() => {
-      sounds.playSparkle();
-      onCompleteRef.current();
-    }, 1400);
-    return () => window.clearTimeout(timer);
-  }, [isFinished]);
+  const handleExplore = () => {
+    sounds.playSparkle();
+    onComplete();
+  };
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center px-6 py-12 max-w-lg mx-auto w-full text-center select-none">
@@ -106,6 +94,18 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
             Midnight • November 8th ✦
           </p>
         </div>
+
+        {/* Explore button — appears once the countdown hits zero */}
+        {isFinished && (
+          <button
+            onClick={handleExplore}
+            className="group mt-2 inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-sm font-semibold tracking-wide hover:from-sky-300 hover:via-blue-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_6px_30px_rgba(56,189,248,0.45)]"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Explore Your Surprise</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        )}
       </div>
 
       {/* Bottom Quiet Quote */}
