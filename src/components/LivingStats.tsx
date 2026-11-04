@@ -58,17 +58,17 @@ export const LivingStats: React.FC<LivingStatsProps> = ({
         {/* Subtle deep blue background glow */}
         <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex items-center justify-between gap-4 border-b border-blue-500/15 pb-5 mb-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 border-b border-blue-500/15 pb-5 mb-6">
           <div>
             <span className="text-[10px] uppercase tracking-widest text-sky-400/80 font-medium">
               Continuous Planet Residency
             </span>
-            <div className="font-serif text-2xl sm:text-3xl text-white mt-1 flex items-baseline gap-2">
+            <div className="font-serif text-2xl sm:text-3xl text-white mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <span>{stats.totalDays.toLocaleString()}</span>
               <span className="text-sm font-light text-blue-200/70 font-sans">Days on Earth</span>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <span className="text-[10px] uppercase tracking-widest text-sky-400 font-medium block">
               Status
             </span>
@@ -78,60 +78,60 @@ export const LivingStats: React.FC<LivingStatsProps> = ({
           </div>
         </div>
 
-        {/* 4 Units: Total Days + Balance Hours + Balance Minutes + Balance Seconds */}
+        {/* 4 Units: Days + Hours + Minutes + Seconds */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {/* Days */}
-          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center sm:items-start">
-            <span className="text-[10px] uppercase tracking-widest text-sky-400/80 font-medium">
-              Days Living
+          <div className="px-3 py-4 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center text-center sm:items-start sm:text-left">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-sky-400/80 font-medium">
+              Days
             </span>
             <span className="font-serif text-2xl sm:text-3xl text-white font-light mt-1 tabular-nums">
               {stats.totalDays.toLocaleString()}
             </span>
-            <span className="text-[11px] text-blue-200/60 font-light mt-0.5">
-              days on Earth
+            <span className="text-[10px] sm:text-[11px] text-blue-200/60 font-light mt-0.5 leading-tight">
+              on Earth
             </span>
           </div>
 
-          {/* Balance Hours */}
-          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center sm:items-start">
-            <span className="text-[10px] uppercase tracking-widest text-sky-400/80 font-medium">
-              Balance Hours
+          {/* Hours */}
+          <div className="px-3 py-4 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center text-center sm:items-start sm:text-left">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-sky-400/80 font-medium">
+              Hours
             </span>
             <span className="font-serif text-2xl sm:text-3xl text-white font-light mt-1 tabular-nums">
               {stats.hoursRemainder.toString().padStart(2, '0')}
             </span>
-            <span className="text-[11px] text-blue-200/60 font-light mt-0.5">
-              hours past midnight
+            <span className="text-[10px] sm:text-[11px] text-blue-200/60 font-light mt-0.5 leading-tight">
+              ticking away
             </span>
           </div>
 
-          {/* Balance Minutes */}
-          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center sm:items-start">
-            <span className="text-[10px] uppercase tracking-widest text-sky-400/80 font-medium">
-              Balance Mins
+          {/* Minutes */}
+          <div className="px-3 py-4 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center text-center sm:items-start sm:text-left">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-sky-400/80 font-medium">
+              Minutes
             </span>
             <span className="font-serif text-2xl sm:text-3xl text-white font-light mt-1 tabular-nums">
               {stats.minutesRemainder.toString().padStart(2, '0')}
             </span>
-            <span className="text-[11px] text-blue-200/60 font-light mt-0.5">
-              minutes counting
+            <span className="text-[10px] sm:text-[11px] text-blue-200/60 font-light mt-0.5 leading-tight">
+              counting
             </span>
           </div>
 
-          {/* Balance Seconds (Live Ticker) */}
-          <div className="p-3.5 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center sm:items-start relative overflow-hidden group">
+          {/* Seconds (Live Ticker) */}
+          <div className="px-3 py-4 sm:p-4 rounded-xl bg-slate-900/60 border border-blue-500/20 flex flex-col items-center text-center sm:items-start sm:text-left relative overflow-hidden group">
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] uppercase tracking-widest text-sky-400 font-medium">
-                Balance Secs
+              <span className="text-[10px] uppercase tracking-[0.18em] text-sky-400 font-medium">
+                Seconds
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping inline-block" />
             </div>
             <span className="font-serif text-2xl sm:text-3xl text-sky-300 font-light mt-1 tabular-nums">
               {stats.secondsRemainder.toString().padStart(2, '0')}
             </span>
-            <span className="text-[11px] text-blue-200/60 font-light mt-0.5">
-              live ticking now
+            <span className="text-[10px] sm:text-[11px] text-blue-200/60 font-light mt-0.5 leading-tight">
+              live right now
             </span>
           </div>
         </div>

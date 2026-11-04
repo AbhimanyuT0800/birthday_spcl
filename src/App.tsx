@@ -4,6 +4,7 @@ import { FloatingParticles } from './components/FloatingParticles';
 import { CountdownView } from './components/CountdownView';
 import { CelebrationView } from './components/CelebrationView';
 import { CustomizeModal } from './components/CustomizeModal';
+import { LoadingScreen } from './components/LoadingScreen';
 
 const DEFAULT_CONFIG: BirthdayConfig = {
   bestieName: 'SHEL',
@@ -42,6 +43,16 @@ export const App: React.FC = () => {
 
   const [currentView, setCurrentView] = useState<'countdown' | 'celebration'>('countdown');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleEnterCelebration = () => {
+    setIsLoading(true);
+  };
+
+  const handleLoadingFinish = () => {
+    setIsLoading(false);
+    setCurrentView('celebration');
+  };
 
   useEffect(() => {
     try {
@@ -57,6 +68,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen w-full bg-[#050a17] text-[#f0f4fc] flex flex-col justify-between overflow-x-hidden selection:bg-blue-600/40 selection:text-white">
+      {/* Flower loading screen (shown after the countdown button press) */}
+      {isLoading && <LoadingScreen duration={5000} onFinish={handleLoadingFinish} />}
+
       {/* Subtle ambient lighting */}
       <FloatingParticles />
 
@@ -94,7 +108,7 @@ export const App: React.FC = () => {
             useSecondsCountdown={config.useSecondsCountdown}
             targetSeconds={config.targetSeconds}
             birthdayDate={config.birthdayDate}
-            onComplete={() => setCurrentView('celebration')}
+            onComplete={handleEnterCelebration}
           />
         ) : (
           <CelebrationView
