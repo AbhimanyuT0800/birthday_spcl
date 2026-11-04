@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 import { sounds } from '../utils/audio';
 
 interface CountdownViewProps {
@@ -17,6 +16,13 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
 }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  const onCompleteRef = useRef(onComplete);
+  const hasCompletedRef = useRef(false);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     const calculateTime = () => {
@@ -48,10 +54,16 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
     return () => clearInterval(interval);
   }, [isFinished]);
 
-  const handleEnter = () => {
-    sounds.playSparkle();
-    onComplete();
-  };
+  // When the countdown reaches zero, move on automatically.
+  useEffect(() => {
+    if (!isFinished || hasCompletedRef.current) return;
+    hasCompletedRef.current = true;
+    const timer = window.setTimeout(() => {
+      sounds.playSparkle();
+      onCompleteRef.current();
+    }, 1400);
+    return () => window.clearTimeout(timer);
+  }, [isFinished]);
 
   return (
     <div className="min-h-screen flex flex-col justify-between items-center px-6 py-12 max-w-lg mx-auto w-full text-center select-none">
@@ -94,15 +106,6 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
             Midnight • November 8th ✦
           </p>
         </div>
-
-        {/* Enter / Skip Button */}
-        <button
-          onClick={handleEnter}
-          className="group inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-xs font-semibold tracking-wide hover:from-sky-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_4px_25px_rgba(56,189,248,0.35)]"
-        >
-          <span>{isFinished ? 'Open Your Birthday Note' : 'Skip & View Message'}</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-        </button>
       </div>
 
       {/* Bottom Quiet Quote */}
