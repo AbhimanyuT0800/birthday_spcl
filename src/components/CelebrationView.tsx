@@ -257,7 +257,7 @@ Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you
             Always
           </p>
           <h2 className="font-serif text-2xl sm:text-3xl text-blue-50 font-normal">
-            Three Birthday Promises
+            Birthday Promises
           </h2>
         </div>
 
@@ -265,11 +265,7 @@ Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you
           {[
             {
               title: 'The Switzerland Journey',
-              desc: 'Whenever you decide to visit or pack up to move to the Alps, I promise to be by your side and your very first houseguest.',
-            },
-            {
-              title: 'The Ferrero Rocher & Cocoa Stash 🍫',
-              desc: 'An endless supply of your favorite golden Ferrero Rochers and warm Swiss cocoa, ready for any mood, celebration, or late-night venting session.',
+              desc: 'Whenever you decide to visit or pack up to move to the Alps, I promise to be by your side.',
             },
             {
               title: 'Unconditional Support',

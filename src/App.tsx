@@ -46,12 +46,14 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleEnterCelebration = () => {
+    // Mount the celebration underneath the loader immediately, so fading the
+    // loader out reveals the celebration instead of flashing the countdown.
+    setCurrentView('celebration');
     setIsLoading(true);
   };
 
   const handleLoadingFinish = () => {
     setIsLoading(false);
-    setCurrentView('celebration');
   };
 
   useEffect(() => {
