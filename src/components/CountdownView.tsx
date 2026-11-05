@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, FlaskConical, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface CountdownViewProps {
@@ -113,15 +113,6 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
         “One flight closer to the Swiss Alps.” 🏔️
       </div>
 
-      {/* Skip button for testing / previewing the celebration */}
-      <button
-        onClick={handleExplore}
-        className="fixed top-4 right-4 z-40 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md hover:bg-amber-400/25 active:scale-95 transition-all"
-        title="Skip the countdown"
-      >
-        <FlaskConical className="w-3.5 h-3.5" />
-        <span>Dev Skip</span>
-      </button>
     </div>
   );
 };
