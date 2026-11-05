@@ -53,11 +53,6 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
     onComplete();
   };
 
-  // Dev-only helper: visible in `npm run dev`, or in any build with `?dev=1`.
-  const isDevMode =
-    import.meta.env.DEV ||
-    new URLSearchParams(window.location.search).has('dev');
-
   return (
     <div className="min-h-screen flex flex-col justify-between items-center px-6 py-12 max-w-lg mx-auto w-full text-center select-none">
       {/* Top subtle bar without dev settings */}
@@ -118,17 +113,15 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
         “One flight closer to the Swiss Alps.” 🏔️
       </div>
 
-      {/* Dev-only skip button for testing */}
-      {isDevMode && (
-        <button
-          onClick={handleExplore}
-          className="fixed top-4 right-4 z-40 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md hover:bg-amber-400/25 active:scale-95 transition-all"
-          title="Dev: skip the countdown"
-        >
-          <FlaskConical className="w-3.5 h-3.5" />
-          <span>Dev Skip</span>
-        </button>
-      )}
+      {/* Skip button for testing / previewing the celebration */}
+      <button
+        onClick={handleExplore}
+        className="fixed top-4 right-4 z-40 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md hover:bg-amber-400/25 active:scale-95 transition-all"
+        title="Skip the countdown"
+      >
+        <FlaskConical className="w-3.5 h-3.5" />
+        <span>Dev Skip</span>
+      </button>
     </div>
   );
 };
