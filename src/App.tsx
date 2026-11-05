@@ -5,6 +5,15 @@ import { CountdownView } from './components/CountdownView';
 import { CelebrationView } from './components/CelebrationView';
 import { CustomizeModal } from './components/CustomizeModal';
 import { LoadingScreen } from './components/LoadingScreen';
+import ferreroTop from './assets/images/ferrero-1.png';
+import choc1 from './assets/images/choc-1.png';
+import choc2 from './assets/images/choc-2.png';
+import choc3 from './assets/images/choc-3.png';
+import choc4 from './assets/images/choc-4.png';
+import choc5 from './assets/images/choc-5.png';
+import choc6 from './assets/images/choc-6.png';
+import choc7 from './assets/images/choc-7.png';
+import choc8 from './assets/images/choc-8.png';
 
 const DEFAULT_CONFIG: BirthdayConfig = {
   bestieName: 'SHEL',
@@ -24,9 +33,33 @@ const DEFAULT_CONFIG: BirthdayConfig = {
 const STORAGE_KEY = 'bestie_birthday_shel_abhi_v4';
 
 const CHOC_IMGS = [
-  'https://images.unsplash.com/photo-1604175358450-6abc0ea2af2c?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1587705904110-fdb1a5e8e9a9?auto=format&fit=crop&w=800&q=80',
+  ferreroTop,
+  choc1,
+  choc2,
+  choc3,
+  choc4,
+  choc5,
+  choc6,
+  choc7,
+  choc8,
 ];
+
+const COLLAGE_POSITIONS = [
+  '50% 50%',
+  '50% 42%',
+  '45% 58%',
+  '55% 46%',
+  '50% 62%',
+  '42% 50%',
+  '58% 54%',
+];
+
+const COLLAGE_TILES = Array.from({ length: 48 }, (_, i) => ({
+  src: CHOC_IMGS[(i * 5 + Math.floor(i / 7)) % CHOC_IMGS.length],
+  pos: COLLAGE_POSITIONS[i % COLLAGE_POSITIONS.length],
+  opacity: [0.3, 0.42, 0.24, 0.36, 0.46, 0.28][i % 6],
+  flip: i % 3 === 0,
+}));
 
 export const App: React.FC = () => {
   const [config, setConfig] = useState<BirthdayConfig>(() => {
@@ -79,26 +112,26 @@ export const App: React.FC = () => {
       {/* Deep Midnight Blue Ambient Glow & Accents */}
       {currentView === 'celebration' && (
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* Subtle midnight vignette */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050a17]/80 via-[#071126]/65 to-[#050a17]/95 z-[1]" />
-
-          {/* Top-Right Decorative Chocolate Accent with Celestial Blue Border */}
-          <div className="absolute -top-12 -right-12 w-64 h-64 sm:w-[420px] sm:h-[420px] opacity-50 sm:opacity-60 filter contrast-110 drop-shadow-[0_20px_50px_rgba(37,99,235,0.3)] transition-all">
-            <img
-              src={CHOC_IMGS[0]}
-              alt="Ferrero Rocher Background"
-              className="w-full h-full object-cover rounded-full border-2 border-sky-400/30 shadow-2xl"
-            />
+          {/* Ferrero Rocher chocolate collage filling the background */}
+          <div className="absolute inset-0 grid grid-cols-4 grid-rows-[repeat(12,1fr)] sm:grid-cols-6 sm:grid-rows-[repeat(8,1fr)] lg:grid-cols-8 lg:grid-rows-[repeat(6,1fr)] scale-105">
+            {COLLAGE_TILES.map((tile, i) => (
+              <img
+                key={i}
+                src={tile.src}
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover"
+                style={{
+                  opacity: tile.opacity,
+                  objectPosition: tile.pos,
+                  transform: tile.flip ? 'scaleX(-1)' : undefined,
+                }}
+              />
+            ))}
           </div>
 
-          {/* Bottom-Left Decorative Accent with Celestial Blue Border */}
-          <div className="absolute -bottom-16 -left-16 w-64 h-64 sm:w-[420px] sm:h-[420px] opacity-50 sm:opacity-60 filter contrast-110 drop-shadow-[0_20px_50px_rgba(37,99,235,0.3)] transition-all">
-            <img
-              src={CHOC_IMGS[1]}
-              alt="Chocolate Truffles Background"
-              className="w-full h-full object-cover rounded-full border-2 border-sky-400/30 shadow-2xl"
-            />
-          </div>
+          {/* Midnight vignette keeps the collage readable behind the content */}
+          <div className="absolute inset-0 z-[1] bg-gradient-to-b from-[#050a17]/50 via-[#071126]/20 to-[#050a17]/72" />
         </div>
       )}
 
