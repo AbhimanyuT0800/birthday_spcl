@@ -57,7 +57,7 @@ const COLLAGE_POSITIONS = [
 const COLLAGE_TILES = Array.from({ length: 48 }, (_, i) => ({
   src: CHOC_IMGS[(i * 5 + Math.floor(i / 7)) % CHOC_IMGS.length],
   pos: COLLAGE_POSITIONS[i % COLLAGE_POSITIONS.length],
-  opacity: [0.3, 0.42, 0.24, 0.36, 0.46, 0.28][i % 6],
+  opacity: [0.16, 0.24, 0.12, 0.2, 0.28, 0.14][i % 6],
   flip: i % 3 === 0,
 }));
 
@@ -113,7 +113,7 @@ export const App: React.FC = () => {
       {currentView === 'celebration' && (
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           {/* Ferrero Rocher chocolate collage filling the background */}
-          <div className="absolute inset-0 grid grid-cols-4 grid-rows-[repeat(12,1fr)] sm:grid-cols-6 sm:grid-rows-[repeat(8,1fr)] lg:grid-cols-8 lg:grid-rows-[repeat(6,1fr)] scale-105">
+          <div className="absolute inset-0 grid grid-cols-4 grid-rows-[repeat(12,1fr)] sm:grid-cols-6 sm:grid-rows-[repeat(8,1fr)] lg:grid-cols-8 lg:grid-rows-[repeat(6,1fr)] scale-105 blur-[4px]">
             {COLLAGE_TILES.map((tile, i) => (
               <img
                 key={i}

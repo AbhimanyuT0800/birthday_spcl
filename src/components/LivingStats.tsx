@@ -49,8 +49,7 @@ export const LivingStats: React.FC<LivingStatsProps> = ({
           Look How Long You've Been Living
         </h2>
         <p className="text-xs sm:text-sm text-blue-200/70 font-light mt-1 max-w-lg">
-          A mathematically validated, strictly scientific, and slightly unhinged record of {bestieName}'s time on planet Earth.
-        </p>
+         An unofficial record of life's so far   </p>
       </div>
 
       {/* Main Living Counter Showcase Card */}
