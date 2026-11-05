@@ -119,7 +119,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
       </div>
 
       {/* Dev-only skip button for testing */}
-      {/* {isDevMode && (
+      {isDevMode && (
         <button
           onClick={handleExplore}
           className="fixed top-4 right-4 z-40 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-200 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-md hover:bg-amber-400/25 active:scale-95 transition-all"
@@ -128,7 +128,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
           <FlaskConical className="w-3.5 h-3.5" />
           <span>Dev Skip</span>
         </button>
-      )} */}
+      )}
     </div>
   );
 };

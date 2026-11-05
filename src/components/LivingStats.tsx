@@ -5,9 +5,7 @@ interface LivingStatsProps {
   bestieName: string;
 }
 
-export const LivingStats: React.FC<LivingStatsProps> = ({
-  bestieName = 'SHEL',
-}) => {
+export const LivingStats: React.FC<LivingStatsProps> = () => {
   const [now, setNow] = useState<Date>(new Date());
 
   // Live ticker updating every second
