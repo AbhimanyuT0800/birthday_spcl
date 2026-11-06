@@ -85,7 +85,7 @@ Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you
                 <div className="flex items-center gap-4">
           <button
             onClick={handleToggleMusic}
-            className="inline-flex items-center gap-1.5 hover:text-white transition-colors py-1"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 hover:text-white transition-colors p-2 -mr-2 sm:min-h-0 sm:min-w-0"
             title="Ambient sound"
           >
             {isMusicPlaying ? (
@@ -315,11 +315,11 @@ Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you
           >
             <button
               onClick={() => setSelectedPhoto(null)}
-              className="absolute -top-10 right-0 p-2 text-sky-300 hover:text-white transition-colors"
+              className="absolute -top-10 right-0 flex min-h-11 min-w-11 items-center justify-center p-2 text-sky-300 hover:text-white transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
-            <div className="rounded-2xl overflow-hidden bg-slate-900 border border-blue-500/20 shadow-2xl">
+            <div className="rounded-2xl overflow-x-hidden overflow-y-auto overscroll-contain max-h-[85vh] bg-slate-900 border border-blue-500/20 shadow-2xl">
               <img
                 src={selectedPhoto.url}
                 alt={selectedPhoto.title}
