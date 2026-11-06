@@ -169,6 +169,74 @@
   }
 }
 
+/* Falling stars on the countdown screen */
+@keyframes starFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -12vh, 0);
+  }
+  7% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift, 0px), 112vh, 0);
+  }
+}
+
+@keyframes starTwinkle {
+  0%,
+  100% {
+    opacity: calc(var(--star-opacity, 0.6) * 0.4);
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: var(--star-opacity, 0.6);
+    transform: scale(1.15);
+  }
+}
+
+.starfall {
+  position: absolute;
+  top: 0;
+  animation-name: starFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.starfall-dot {
+  display: block;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(186, 230, 253, 0.85) 42%,
+    rgba(125, 211, 252, 0.18) 68%,
+    transparent 72%
+  );
+  box-shadow: 0 0 6px rgba(147, 197, 253, 0.5);
+  animation-name: starTwinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: opacity, transform;
+}
+
+.starfall-glow {
+  box-shadow:
+    0 0 12px 2px rgba(125, 211, 252, 0.4),
+    0 0 4px rgba(255, 255, 255, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfall-layer {
+    display: none;
+  }
+}
+
 .screen-min-h {
   min-height: 100vh;
   min-height: 100dvh;

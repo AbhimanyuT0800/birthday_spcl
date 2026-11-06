@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { sounds } from '../utils/audio';
+import { FallingStars } from './FallingStars';
 
 interface CountdownViewProps {
   bestieName: string;
@@ -53,65 +54,68 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
   };
 
   return (
-    <div className="screen-min-h flex flex-col justify-between items-center px-5 sm:px-6 py-10 sm:py-12 max-w-lg mx-auto w-full text-center select-none">
-      {/* Top subtle bar */}
-      <div className="w-full flex justify-center items-center text-xs text-sky-400/80 font-light tracking-widest uppercase">
-        <span>✦ A Special Gift For You ✦</span>
-      </div>
+    <div className="relative screen-min-h w-full overflow-hidden">
+      <FallingStars />
 
-      {/* Center Countdown Unit */}
-      <div className="my-auto w-full flex flex-col items-center">
-        <p className="text-xs uppercase tracking-[0.25em] text-sky-400/90 font-medium mb-3">
-          For {bestieName || 'SHEL'}
-        </p>
-
-        <h1 className="font-serif text-3xl sm:text-4xl text-blue-50 font-normal mb-8">
-          {isFinished ? 'Your Day Is Here.' : 'Counting down to your birthday'}
-        </h1>
-
-        {/* Real Date Digit Display (Nov 7 11:59 PM -> Nov 8) */}
-        <div className="mb-8 w-full">
-          <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center w-full">
-            {[
-              { val: timeLeft.days, label: 'days' },
-              { val: timeLeft.hours, label: 'hours' },
-              { val: timeLeft.minutes, label: 'mins' },
-              { val: timeLeft.seconds, label: 'secs' },
-            ].map((t, idx) => (
-              <div key={idx} className="flex flex-col items-center px-2 py-3 sm:p-4 rounded-2xl bg-slate-900/65 border border-blue-500/20 shadow-[0_8px_30px_rgba(2,6,23,0.7)] backdrop-blur-md">
-                <span className="font-serif text-2xl sm:text-4xl text-white font-light tabular-nums">
-                  {t.val.toString().padStart(2, '0')}
-                </span>
-                <span className="text-[10px] uppercase tracking-wider sm:tracking-widest text-sky-400/75 mt-1 font-medium">
-                  {t.label}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-[11px] uppercase tracking-[0.25em] text-blue-300/70 mt-4 font-light">
-            Midnight • November 8th ✦
-          </p>
+      <div className="relative z-10 screen-min-h flex flex-col justify-between items-center px-5 sm:px-6 py-10 sm:py-12 max-w-lg mx-auto w-full text-center select-none">
+        {/* Top subtle bar */}
+        <div className="w-full flex justify-center items-center text-xs text-sky-400/80 font-light tracking-widest uppercase">
+          <span>✦ A Special Gift For You ✦</span>
         </div>
 
-        {/* Explore button — appears once the countdown hits zero */}
-        {isFinished && (
-          <button
-            onClick={handleExplore}
-            className="group mt-2 inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-[13px] sm:text-sm font-semibold tracking-wide hover:from-sky-300 hover:via-blue-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_6px_30px_rgba(56,189,248,0.45)]"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>Explore Your Surprise</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
-        )}
-      </div>
+        {/* Center Countdown Unit */}
+        <div className="my-auto w-full flex flex-col items-center">
+          <p className="text-xs uppercase tracking-[0.25em] text-sky-400/90 font-medium mb-3">
+            For {bestieName || 'SHEL'}
+          </p>
 
-      {/* Bottom Quiet Quote */}
-      <div className="text-blue-300/60 text-xs font-serif italic tracking-wide">
-        “One flight closer to the Swiss Alps.” 🏔️
-      </div>
+          <h1 className="font-serif text-3xl sm:text-4xl text-blue-50 font-normal mb-8">
+            {isFinished ? 'Your Day Is Here.' : 'Counting down to your birthday'}
+          </h1>
 
+          {/* Real Date Digit Display (Nov 7 11:59 PM -> Nov 8) */}
+          <div className="mb-8 w-full">
+            <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center w-full">
+              {[
+                { val: timeLeft.days, label: 'days' },
+                { val: timeLeft.hours, label: 'hours' },
+                { val: timeLeft.minutes, label: 'mins' },
+                { val: timeLeft.seconds, label: 'secs' },
+              ].map((t, idx) => (
+                <div key={idx} className="flex flex-col items-center px-2 py-3 sm:p-4 rounded-2xl bg-slate-900/65 border border-blue-500/20 shadow-[0_8px_30px_rgba(2,6,23,0.7)] backdrop-blur-md">
+                  <span className="font-serif text-2xl sm:text-4xl text-white font-light tabular-nums">
+                    {t.val.toString().padStart(2, '0')}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-wider sm:tracking-widest text-sky-400/75 mt-1 font-medium">
+                    {t.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-[11px] uppercase tracking-[0.25em] text-blue-300/70 mt-4 font-light">
+              Midnight • November 8th ✦
+            </p>
+          </div>
+
+          {/* Explore button — appears once the countdown hits zero */}
+          {isFinished && (
+            <button
+              onClick={handleExplore}
+              className="group mt-2 inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-[13px] sm:text-sm font-semibold tracking-wide hover:from-sky-300 hover:via-blue-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_6px_30px_rgba(56,189,248,0.45)]"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Explore Your Surprise</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </button>
+          )}
+        </div>
+
+        {/* Bottom Quiet Quote */}
+        <div className="text-blue-300/60 text-xs font-serif italic tracking-wide">
+          “One flight closer to the Swiss Alps.” 🏔️
+        </div>
+      </div>
     </div>
   );
 };
