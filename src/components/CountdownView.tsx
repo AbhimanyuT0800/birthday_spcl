@@ -8,7 +8,6 @@ interface CountdownViewProps {
   targetSeconds?: number;
   birthdayDate?: string;
   onComplete: () => void;
-  onOpenSettings?: () => void;
 }
 
 export const CountdownView: React.FC<CountdownViewProps> = ({
@@ -55,7 +54,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
 
   return (
     <div className="screen-min-h flex flex-col justify-between items-center px-5 sm:px-6 py-10 sm:py-12 max-w-lg mx-auto w-full text-center select-none">
-      {/* Top subtle bar without dev settings */}
+      {/* Top subtle bar */}
       <div className="w-full flex justify-center items-center text-xs text-sky-400/80 font-light tracking-widest uppercase">
         <span>✦ A Special Gift For You ✦</span>
       </div>
@@ -96,7 +95,7 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
         </div>
 
         {/* Explore button — appears once the countdown hits zero */}
-        {isFinished ? (
+        {isFinished && (
           <button
             onClick={handleExplore}
             className="group mt-2 inline-flex items-center gap-2 sm:gap-2.5 px-6 sm:px-8 py-4 rounded-full bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 text-slate-950 text-[13px] sm:text-sm font-semibold tracking-wide hover:from-sky-300 hover:via-blue-300 hover:to-indigo-300 active:scale-95 transition-all shadow-[0_6px_30px_rgba(56,189,248,0.45)]"
@@ -104,14 +103,6 @@ export const CountdownView: React.FC<CountdownViewProps> = ({
             <Sparkles className="w-4 h-4" />
             <span>Explore Your Surprise</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-          </button>
-        ) : (
-          <button
-            onClick={handleExplore}
-            className="mt-2 inline-flex min-h-11 items-center gap-1.5 px-4 text-[11px] uppercase tracking-[0.2em] text-blue-300/50 hover:text-sky-300 transition-colors"
-          >
-            <span>Skip the wait</span>
-            <ArrowRight className="w-3 h-3" />
           </button>
         )}
       </div>
