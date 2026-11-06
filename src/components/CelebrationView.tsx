@@ -301,6 +301,9 @@ Happy Birthday, SHEL! Stay the wonderful person you are. Always cheering for you
       {/* Minimal Footer */}
       <footer className="text-center pt-8 border-t border-blue-500/15 text-blue-300/50 text-xs font-light tracking-wider">
         <p>FOR {config.bestieName?.toUpperCase() || 'SHEL'} • HAPPY BIRTHDAY</p>
+        <p className="mt-2 text-[10px] uppercase tracking-[0.3em] text-sky-400/40">
+          Made just for you, {config.senderName || 'ABHI'} ✦
+        </p>
       </footer>
 
       {/* Full Photo Modal */}
