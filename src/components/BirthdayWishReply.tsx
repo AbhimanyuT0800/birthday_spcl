@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { Sparkles, Check, AlertCircle } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
-const WISH_ENDPOINT =
+const PROD_WISH_ENDPOINT =
   'https://form2email.terragohan.com/f/U1_W96LtWjYAehp2AVp_0S_BOHqYmbq1V96yQdHyCOQ';
+
+const WISH_ENDPOINT =
+  typeof window !== 'undefined' &&
+  window.location.hostname === 'abhimanyut0800.github.io'
+    ? PROD_WISH_ENDPOINT
+    : '/wish-relay';
 
 interface BirthdayWishReplyProps {
   bestieName: string;
